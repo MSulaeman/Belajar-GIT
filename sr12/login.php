@@ -1,34 +1,34 @@
-<?php 
-session_start();
+<?php
+include 'koneksi.php';
 
-if(isset($_SESSION["login"])){
-    header("location: home.php");
-    exit;
-}
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-require 'functions.php';
-if( isset($_POST["login"])){
-    $username = $_POST["username"];
-    $password = $_POST["password"];
+    // Ambil data user berdasarkan username
+    $sql = "SELECT id, password FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $stmt->store_result();
+    $stmt->bind_result($id, $db_password);
 
-    $result = mysqli_query($conn, "SELECT * FROM user WHERE username = '$username'");
-
-    if(mysqli_num_rows($result) === 1){
-
-        //cek pw
-        $row = mysqli_fetch_assoc($result);
-        if(password_verify($password, $row["password"])){
-            //set session
-            $_SESSION["login"] = true;
-
-           header("location: index.php");
+    if ($stmt->num_rows > 0) {
+        $stmt->fetch();
+        // Verifikasi password (tanpa hashing, perbandingan langsung)
+        if ($password === $db_password) {
+            header('Location: home.php');
+            exit();
+        } else {
+            echo "Password salah!";
         }
+    } else {
+        echo "Username tidak ditemukan!";
     }
 
-    $error = true;
-
+    $stmt->close();
+    $conn->close();
 }
-
 ?>
 
 
@@ -41,30 +41,31 @@ if( isset($_POST["login"])){
 
 <html>
 <head>
+    <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="relative">
-        <div class="absolute inset-0 bg-blue-500 rounded-lg transform rotate-6"></div>
+        <div class="absolute inset-0 bg-teal-400 rounded-lg transform rotate-6"></div>
         <div class="relative bg-white rounded-lg shadow-lg p-8 w-80">
             <h2 class="text-2xl font-bold mb-6">Login</h2>
-            <form>
+            <form method="POST" action="login.php">
                 <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email Address</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email Address">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Username</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="username" placeholder="Username" required>
                 </div>
                 <div class="mb-6">
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="Password">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" type="password" name="password" placeholder="Password" required>
                 </div>
                 <div class="flex items-center justify-center">
-                    <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" name="login">
-                       <a href="home.html"> Login</a>
+                    <button class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            Login
                     </button>
                 </div>
                 <div>
-                    <a class="flex items-center justify-center font-serif text-cyan-500" href="daftar.html">Daftar</a>
+                    <a class="flex items-center justify-center font-serif text-cyan-500" href="daftar.php">Daftar</a>
                 </div>
             </form>
             
