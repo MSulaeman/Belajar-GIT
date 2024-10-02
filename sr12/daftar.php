@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];  // Simpan password tanpa hashing
 
     // Cek apakah username sudah ada
-    $sql = "SELECT id FROM users WHERE username = ?";
+    $sql = "SELECT id FROM login WHERE username = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $username);
     $stmt->execute();
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Username sudah ada, pilih username lain.";
     } else {
         // Insert data user baru tanpa hashing password
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO login (username, password) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param('ss', $username, $password);
 

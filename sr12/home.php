@@ -39,6 +39,7 @@
         </div>
         <div class="container mx-auto p-4 pt-6 md:p-6 lg:p-12">
             <button class="bg-red-600  text-white font-bold py-2 px-4 rounded"><a href="login.php">Logout</a></button>
+            <i class="fas fa-user">Logout</i>
         </div>
         
     </section>
