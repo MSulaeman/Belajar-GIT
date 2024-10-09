@@ -37,11 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html>
 <head>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="relative">
-        <div class="absolute inset-0 bg-blue-500 rounded-lg transform rotate-6"></div>
+        <div class="absolute inset-0 bg-teal-400 rounded-lg transform rotate-6"></div>
         <div class="relative bg-white rounded-lg shadow-lg p-8 w-80">
             <h2 class="text-2xl font-bold mb-6">Daftar Akun</h2>
             <form method="POST" action="daftar.php">
@@ -54,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password" placeholder="Password">
                 </div>
                 <div class="flex items-center justify-between">
-                    <button id="btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Daftar</button>
+                    <button id="btn" class="bg-teal-400 hover:bg-teal-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">Daftar</button>
                 </div>
             </form>
             

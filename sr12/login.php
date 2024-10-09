@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="relative">
@@ -65,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </button>
                 </div>
                 <div>
-                    <a class="flex items-center justify-center font-serif text-cyan-500" href="daftar.php">Daftar</a>
+                    <a class="flex items-center justify-center font-serif text-cyan-500" href="daftar.php">Don't have account?Sign Up</a>
                 </div>
             </form>
             
